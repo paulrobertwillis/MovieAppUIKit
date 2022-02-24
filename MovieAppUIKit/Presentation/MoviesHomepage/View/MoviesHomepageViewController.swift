@@ -21,7 +21,7 @@ class MoviesHomepageViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    
+    private var viewModel: MoviesHomepageViewModel!
     
     // MARK: - Public Properties
     
@@ -31,6 +31,21 @@ class MoviesHomepageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let network = DefaultNetworkService()
+        let service = DefaultMoviesService(network: network)
+        let repository = DefaultMoviesRepository(service)
+        let useCase = DefaultFetchPopularMoviesUseCase(moviesRepository: repository)
+        self.viewModel = DefaultMoviesHomepageViewModel(fetchPopularMoviesUseCase: useCase)
+        
+        self.setupViews()
+
+    }
+    
+    
+    // MARK: - Private
+    
+    private func setupViews() {
+        self.title = viewModel.screenTitle
     }
     
     // MARK: - IBActions
@@ -42,10 +57,12 @@ class MoviesHomepageViewController: UIViewController {
     
     @IBAction func popularButtonTapped(_ sender: Any) {
         print("Popular button tapped")
+        self.viewModel.didSearchPopularMovies()
     }
     
     @IBAction func topRatedButtonTapped(_ sender: Any) {
         print("Top Rated button tapped")
+        self.viewModel.didSearchTopRatedMovies()
     }
 
 
