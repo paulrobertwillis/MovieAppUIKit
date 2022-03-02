@@ -7,14 +7,8 @@
 
 import Foundation
 
-struct MoviesHomepageViewModelActions {
-    // Actions that can be taken by the ViewModel on behalf of a Controller.
-    // These should begin with imperative verbs: Show, Hide, Close, Open, etc, and be constants of type closure.
-    // Used to tell a Controller (or a FlowCoordinator) when to present another view.
-    
-    // EXAMPLE:
-    // let showMovieDetails: (Movie) -> Void
-}
+// Properties would be in protocol as they are owned by the VM. "Protocol" would take on input/output roles, and then delegate would take on the functions currently used in closures through Actions.
+// If error shows up, could have function in VC for showError(_ error: String). At that point, the state of the error is held by the UIView. Other way is just have delegate say an error has appeared, then it would be the VC's task to go to the VM and get the error. Two different approaches. If VM really cares about state, let it own it. If it doesn't care, let the view own it. But be consistent!
 
 protocol MoviesHomepageViewModelInput {
     // Used to make the View Model testable by allowing it to be mocked.
@@ -42,11 +36,19 @@ protocol MoviesHomepageViewModelOutput {
 
 protocol MoviesHomepageViewModel: MoviesHomepageViewModelInput, MoviesHomepageViewModelOutput {}
 
+// TODO: Remove once have Observer pattern
+protocol MoviesHomepageViewModelDelegate {
+    func refreshList(with movies: [Movie])
+}
+
 final class DefaultMoviesHomepageViewModel: MoviesHomepageViewModel {
     
     // UseCases should be defined through protocols. E.g., SearchMovieUseCase would be a protocol implemented by DefaultSearchMoviesUseCase.
-    private let fetchPopularMoviesUseCase: FetchPopularMoviesUseCase
-    private let actions: MoviesHomepageViewModelActions?
+    private let fetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol
+    private let fetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCase
+    
+    // TODO: Remove once have Observer pattern
+    private let delegate: MoviesHomepageViewModelDelegate
     
     // MARK: - OUTPUT
 
@@ -56,15 +58,16 @@ final class DefaultMoviesHomepageViewModel: MoviesHomepageViewModel {
     
     // MARK: - Init
 
-    init(fetchPopularMoviesUseCase: FetchPopularMoviesUseCase,
-         actions: MoviesHomepageViewModelActions? = nil) {
+    init(fetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol,
+         fetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCase, delegate: MoviesHomepageViewModelDelegate) {
         self.fetchPopularMoviesUseCase = fetchPopularMoviesUseCase
-        self.actions = actions
+        self.fetchTopRatedMoviesUseCase = fetchTopRatedMoviesUseCase
+        self.delegate = delegate
     }
 
     
     // MARK: - Private
-    
+        
 }
 
 // MARK: - INPUT. View event methods
@@ -88,12 +91,23 @@ extension DefaultMoviesHomepageViewModel {
     func didSearchPopularMovies() {
         print("inside didSearchPopularMovies")
         self.fetchPopularMoviesUseCase.start { data in
-            print(data)
-            // TODO: Do something with the data (which is a MoviesPage) to refresh the table
+            print(data?.movies[0])
+            
+            guard let movies = data?.movies else { return }
+            
+            self.delegate.refreshList(with: movies)
         }
     }
     
     func didSearchTopRatedMovies() {
-        
+        print("inside didSearchTopRatedMovies")
+        self.fetchTopRatedMoviesUseCase.start { data in
+            print(data?.movies[0])
+            
+            guard let movies = data?.movies else { return }
+            
+            self.delegate.refreshList(with: movies)
+
+        }
     }
 }

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Movie: Equatable, Identifiable {
-    let id: Int
+public struct Movie: Equatable, Identifiable {
+    public let id: Int
     let title: String?
     let posterPath: String?
     let releaseDate: String?

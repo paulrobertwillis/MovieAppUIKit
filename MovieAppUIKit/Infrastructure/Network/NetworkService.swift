@@ -12,7 +12,7 @@ public protocol NetworkServiceProtocol {
 
 }
 
-final class DefaultNetworkService: NetworkServiceProtocol {
+final class NetworkService: NetworkServiceProtocol {
     // TODO: Genericise this service to perform requests and decode the results for T, not just for MoviesResponseDTO
     public func perform<RequestType: NetworkRequestProtocol>(_ request: RequestType, with completion: @escaping (MoviesResponseDTO?) -> Void) {
         

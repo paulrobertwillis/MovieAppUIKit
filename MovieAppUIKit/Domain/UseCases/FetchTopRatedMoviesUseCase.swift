@@ -7,11 +7,24 @@
 
 import Foundation
 
-final class FetchTopRatedMoviesUseCase: UseCase {
+protocol FetchTopRatedMoviesUseCase {
+    func start(completion: @escaping (MoviesPage?) -> Void)
+}
+
+final class DefaultFetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCase {
 
     // Should implement UseCase, a default protocol with a start() function that all use cases implement.
     
-    func start() {
-        
+    private let moviesRepository: MoviesRepositoryProtocol
+    
+    init(moviesRepository: MoviesRepositoryProtocol) {
+        self.moviesRepository = moviesRepository
+    }
+
+    func start(completion: @escaping (MoviesPage?) -> Void) {
+        print("inside DefaultFetchTopRatedMoviesUseCase start()")
+        self.moviesRepository.fetchTopRatedMovies(completion: { result in
+            completion(result)
+        })
     }
 }

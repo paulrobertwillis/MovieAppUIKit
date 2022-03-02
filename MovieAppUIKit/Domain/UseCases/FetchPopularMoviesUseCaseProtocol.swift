@@ -7,17 +7,17 @@
 
 import Foundation
 
-protocol FetchPopularMoviesUseCase {
+protocol FetchPopularMoviesUseCaseProtocol {
     func start(completion: @escaping (MoviesPage?) -> Void)
 }
 
-final class DefaultFetchPopularMoviesUseCase: FetchPopularMoviesUseCase {
+final class FetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol {
 
-    // Should implement UseCase, a default protocol with a start() function that all use cases implement.
+    // Should implement UseCase, a default protocol with a start() function that all use cases implement?
     
-    private let moviesRepository: MoviesRepository
+    private let moviesRepository: MoviesRepositoryProtocol
     
-    init(moviesRepository: MoviesRepository) {
+    init(moviesRepository: MoviesRepositoryProtocol) {
         self.moviesRepository = moviesRepository
     }
     
