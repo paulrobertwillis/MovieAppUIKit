@@ -19,7 +19,6 @@ class MoviesHomepageViewController: UIViewController {
     
     @IBOutlet weak var movieListTableView: UITableView!
     
-    
     // MARK: - Private Properties
     
     private var viewModel: MoviesHomepageViewModel!
@@ -33,6 +32,7 @@ class MoviesHomepageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let network = NetworkService()
         let service = MoviesService(network: network)
         let repository = MoviesRepository(service)

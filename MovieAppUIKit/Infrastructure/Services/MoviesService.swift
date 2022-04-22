@@ -7,20 +7,12 @@
 
 import Foundation
 
-class Service {
-    public let network: NetworkServiceProtocol
-    
-    public required init(network: NetworkServiceProtocol) {
-        self.network = network
-    }
-}
-
 public protocol MoviesServiceProtocol {
     func getPopularMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void)
     func getTopRatedMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void)
 }
 
-final class MoviesService: Service, MoviesServiceProtocol {
+class MoviesService: Service, MoviesServiceProtocol {
     func getPopularMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void) {
         
         // TODO: Check if this should be injected?
