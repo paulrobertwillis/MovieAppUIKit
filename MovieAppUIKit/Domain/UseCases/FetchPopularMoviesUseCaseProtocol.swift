@@ -22,7 +22,6 @@ final class FetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol {
     }
     
     func start(completion: @escaping (MoviesPage?) -> Void) {
-        print("inside DefaultFetchPopularMoviesUseCase start()")
         self.moviesRepository.fetchPopularMovies(completion: { result in
             completion(result)
         })

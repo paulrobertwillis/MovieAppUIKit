@@ -89,7 +89,6 @@ extension DefaultMoviesHomepageViewModel {
     // }
 
     func didSearchPopularMovies() {
-        print("inside didSearchPopularMovies")
         self.fetchPopularMoviesUseCase.start { data in
             print(data?.movies[0])
             
@@ -100,7 +99,6 @@ extension DefaultMoviesHomepageViewModel {
     }
     
     func didSearchTopRatedMovies() {
-        print("inside didSearchTopRatedMovies")
         self.fetchTopRatedMoviesUseCase.start { data in
             print(data?.movies[0])
             

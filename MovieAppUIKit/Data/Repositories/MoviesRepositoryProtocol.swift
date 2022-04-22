@@ -23,14 +23,12 @@ class MoviesRepository: MoviesRepositoryProtocol {
 //        TODO: Use this to genericise the two fetch functions. Can use e.g. service.getMovies(with: request)?
 //        let request = PopularMoviesRequest()
         
-        print("inside MoviesRepository fetchPopularMovies()")
         self.service.getPopularMovies { result in
             completion(result?.toDomain())
         }
     }
     
     public func fetchTopRatedMovies(completion: @escaping (MoviesPage?) -> Void) {
-        print("inside MoviesRepository fetchPopularMovies()")
         self.service.getTopRatedMovies { result in
             self.service.getTopRatedMovies { result in
                 completion(result?.toDomain())

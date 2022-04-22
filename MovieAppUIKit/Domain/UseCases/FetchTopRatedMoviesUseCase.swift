@@ -22,7 +22,6 @@ final class DefaultFetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCase {
     }
 
     func start(completion: @escaping (MoviesPage?) -> Void) {
-        print("inside DefaultFetchTopRatedMoviesUseCase start()")
         self.moviesRepository.fetchTopRatedMovies(completion: { result in
             completion(result)
         })

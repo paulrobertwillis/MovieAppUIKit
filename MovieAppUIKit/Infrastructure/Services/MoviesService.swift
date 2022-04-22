@@ -22,7 +22,6 @@ public protocol MoviesServiceProtocol {
 
 final class MoviesService: Service, MoviesServiceProtocol {
     func getPopularMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void) {
-        print("inside DefaultMoviesService getPopularMovies()")
         
         // TODO: Check if this should be injected?
         let request = PopularMoviesRequest()
@@ -30,7 +29,6 @@ final class MoviesService: Service, MoviesServiceProtocol {
     }
     
     func getTopRatedMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void) {
-        print("inside DefaultMoviesService getTopRatedMovies()")
 
         let request = TopRatedMoviesRequest()
         self.network.perform(request, with: completion)
