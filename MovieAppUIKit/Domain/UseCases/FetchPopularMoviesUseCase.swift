@@ -11,7 +11,7 @@ protocol FetchPopularMoviesUseCaseProtocol {
     func start(completion: @escaping (MoviesPage?) -> Void)
 }
 
-final class FetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol {
+class FetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol {
 
     // Should implement UseCase, a default protocol with a start() function that all use cases implement?
     

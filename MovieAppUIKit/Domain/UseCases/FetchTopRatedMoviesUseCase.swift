@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol FetchTopRatedMoviesUseCase {
+protocol FetchTopRatedMoviesUseCaseProtocol {
     func start(completion: @escaping (MoviesPage?) -> Void)
 }
 
-final class DefaultFetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCase {
+class FetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCaseProtocol {
 
     // Should implement UseCase, a default protocol with a start() function that all use cases implement.
     

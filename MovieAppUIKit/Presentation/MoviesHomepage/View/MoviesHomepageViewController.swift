@@ -26,19 +26,27 @@ class MoviesHomepageViewController: UIViewController {
     
     // MARK: - Public Properties
     
-    
+    var posterImageRepository: PosterImageRepositoryProtocol?
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let network = NetworkService()
+        let appConfiguration = AppConfiguration()
+        let config = APIDataNetworkConfig(baseURL: appConfiguration.imagesBaseURL)
+        let sessionManager = NetworkSessionManager()
+        let networkService = NetworkService(config: config, sessionManager: sessionManager)
+        let imageDataTransferService = DataTransferService(with: networkService)
+        self.posterImageRepository = PosterImageRepository(dataTransferService: imageDataTransferService)
+        
+        let network = MoviesNetworkService()
         let service = MoviesService(network: network)
         let repository = MoviesRepository(service)
         let popularUseCase = FetchPopularMoviesUseCase(moviesRepository: repository)
-        let topRatedUseCase = DefaultFetchTopRatedMoviesUseCase(moviesRepository: repository)
-        self.viewModel = DefaultMoviesHomepageViewModel(fetchPopularMoviesUseCase: popularUseCase, fetchTopRatedMoviesUseCase: topRatedUseCase, delegate: self)
+        let topRatedUseCase = FetchTopRatedMoviesUseCase(moviesRepository: repository)
+        
+        self.viewModel = MoviesHomepageViewModel(fetchPopularMoviesUseCase: popularUseCase, fetchTopRatedMoviesUseCase: topRatedUseCase, delegate: self)
         
         self.setupViews()
         self.setupTableView()
@@ -55,8 +63,8 @@ class MoviesHomepageViewController: UIViewController {
         self.movieListTableView.dataSource = self
         self.movieListTableView.register(UINib(nibName: MoviesListItemCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: MoviesListItemCell.reuseIdentifier)
         
-        self.movieListTableView.estimatedRowHeight = MoviesListItemCell.height
         self.movieListTableView.rowHeight = UITableView.automaticDimension
+        self.movieListTableView.estimatedRowHeight = MoviesListItemCell.height
     }
     
     
@@ -99,7 +107,10 @@ extension MoviesHomepageViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.fill(with: self.movies[indexPath.row])
+        cell.fill(
+            with: self.movies[indexPath.row],
+            posterImageRepository: self.posterImageRepository
+        )
         
         return cell
     }

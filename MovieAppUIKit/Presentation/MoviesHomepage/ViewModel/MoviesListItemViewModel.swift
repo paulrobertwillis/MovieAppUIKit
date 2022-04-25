@@ -11,11 +11,13 @@ public struct MoviesListItemViewModel {
     
     let title: String
     let releaseDate: String
-    let posterPath: String?
-    
-    public init(_ movie: Movie) {
+    let posterImagePath: String?
+}
+
+extension MoviesListItemViewModel {
+    init(_ movie: Movie) {
         self.title = movie.title ?? ""
-        self.posterPath = movie.posterPath
+        self.posterImagePath = movie.posterPath
         
         if let releaseDate = movie.releaseDate {
             self.releaseDate = "Release date: \(releaseDate)"

@@ -8,9 +8,9 @@
 import Foundation
 
 class Service {
-    public let network: NetworkServiceProtocol
+    public let network: MoviesNetworkServiceProtocol
     
-    public required init(network: NetworkServiceProtocol) {
+    public required init(network: MoviesNetworkServiceProtocol) {
         self.network = network
     }
 }
