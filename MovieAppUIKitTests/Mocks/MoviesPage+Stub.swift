@@ -13,6 +13,10 @@ extension MoviesPage {
         totalPages: Int = 1,
         movies: [Movie] = [Movie].stub()
     ) -> Self {
-        MoviesPage(page: page, totalPages: totalPages, movies: movies)
+        MoviesPage(
+            page: page,
+            totalPages: totalPages,
+            movies: movies
+        )
     }
 }
