@@ -8,7 +8,6 @@
 import Foundation
 
 public struct MoviesListItemViewModel {
-    
     let title: String
     let releaseDate: String
     let posterImagePath: String?

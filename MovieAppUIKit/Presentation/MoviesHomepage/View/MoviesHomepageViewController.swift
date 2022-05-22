@@ -22,7 +22,6 @@ class MoviesHomepageViewController: UIViewController {
     // MARK: - Private Properties
     
     private var viewModel: MoviesHomepageViewModel!
-    private var movies: [MoviesListItemViewModel] = []
     
     // MARK: - Public Properties
     
@@ -90,7 +89,7 @@ extension MoviesHomepageViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.movies.count
+        return self.viewModel.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,7 +100,7 @@ extension MoviesHomepageViewController: UITableViewDataSource {
         }
         
         cell.fill(
-            with: self.movies[indexPath.row],
+            with: self.viewModel.movies[indexPath.row],
             posterImageRepository: self.posterImageRepository
         )
         
@@ -110,8 +109,7 @@ extension MoviesHomepageViewController: UITableViewDataSource {
 }
 
 extension MoviesHomepageViewController: MoviesHomepageViewModelDelegate {
-    func refreshList(with movies: [Movie]) {
-        self.movies = movies.compactMap(MoviesListItemViewModel.init)
+    func refreshList() {
         self.movieListTableView.reloadData()
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FetchPopularMoviesUseCaseProtocol {
-    func start(completion: @escaping (MoviesPage?) -> Void)
+    func start(completion: @escaping (Result<MoviesPage, Error>) -> Void)
 }
 
 class FetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol {
@@ -21,7 +21,7 @@ class FetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol {
         self.moviesRepository = moviesRepository
     }
     
-    func start(completion: @escaping (MoviesPage?) -> Void) {
+    func start(completion: @escaping (Result<MoviesPage, Error>) -> Void) {
         self.moviesRepository.fetchPopularMovies(completion: { result in
             completion(result)
         })

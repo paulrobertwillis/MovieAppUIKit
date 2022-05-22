@@ -16,9 +16,8 @@ protocol MoviesHomepageViewModelProtocol {
     func didSearchTopRatedMovies()
 }
 
-// TODO: Remove once have Observer pattern
 protocol MoviesHomepageViewModelDelegate {
-    func refreshList(with movies: [Movie])
+    func refreshList()
 }
 
 class MoviesHomepageViewModel: MoviesHomepageViewModelProtocol {
@@ -26,12 +25,15 @@ class MoviesHomepageViewModel: MoviesHomepageViewModelProtocol {
     private let fetchPopularMoviesUseCase: FetchPopularMoviesUseCaseProtocol
     private let fetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCaseProtocol
     
-    // TODO: Remove once have Observer pattern
     private let delegate: MoviesHomepageViewModelDelegate
+    
+    private var pages: [MoviesPage] = []
     
     // MARK: - OUTPUT
 
-     let screenTitle = NSLocalizedString("Movies", comment: "")
+    let screenTitle = NSLocalizedString("Movies", comment: "")
+    
+    var movies: [MoviesListItemViewModel] = []
     
     // MARK: - Init
 
@@ -41,7 +43,6 @@ class MoviesHomepageViewModel: MoviesHomepageViewModelProtocol {
         self.fetchTopRatedMoviesUseCase = fetchTopRatedMoviesUseCase
         self.delegate = delegate
     }
-        
 }
 
 // MARK: - INPUT. View event methods
@@ -51,18 +52,34 @@ extension MoviesHomepageViewModel {
     func viewDidLoad() { }
 
     func didSearchPopularMovies() {
-        self.fetchPopularMoviesUseCase.start { data in
-            print(data?.movies[0] ?? "")
-            guard let movies = data?.movies else { return }
-            self.delegate.refreshList(with: movies)
+        self.fetchPopularMoviesUseCase.start { result in
+            switch result {
+            case .success(let page):
+                self.pages = [page]
+                
+                self.movies = page.movies.compactMap(MoviesListItemViewModel.init)
+            case .failure(let error):
+                // TODO: Implement handling
+                print(error)
+            }
+            
+            self.delegate.refreshList()
         }
     }
     
     func didSearchTopRatedMovies() {
-        self.fetchTopRatedMoviesUseCase.start { data in
-            print(data?.movies[0] ?? "")
-            guard let movies = data?.movies else { return }
-            self.delegate.refreshList(with: movies)
+        self.fetchTopRatedMoviesUseCase.start { result in
+            switch result {
+            case .success(let page):
+                self.pages = [page]
+                
+                self.movies = page.movies.compactMap(MoviesListItemViewModel.init)
+            case .failure(let error):
+                // TODO: Implement handling
+                print(error)
+            }
+            
+            self.delegate.refreshList()
         }
     }
 }
