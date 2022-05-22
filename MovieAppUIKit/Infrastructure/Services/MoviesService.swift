@@ -14,14 +14,12 @@ public protocol MoviesServiceProtocol {
 
 class MoviesService: Service, MoviesServiceProtocol {
     func getPopularMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void) {
-        
         // TODO: Check if this should be injected?
         let request = PopularMoviesRequest()
         self.network.perform(request, with: completion)
     }
     
     func getTopRatedMovies(_ completion: @escaping (MoviesResponseDTO?) -> Void) {
-
         let request = TopRatedMoviesRequest()
         self.network.perform(request, with: completion)
     }

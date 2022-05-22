@@ -26,7 +26,6 @@ class DataTransferService {
 // MARK: - DataTransferServiceProtocol
 extension DataTransferService: DataTransferServiceProtocol {
     func request<T: Decodable, E: ResponseRequestable>(with endpoint: E, completion: @escaping CompletionHandler<T>) -> URLSessionDataTask? where E.Response == T {
-
         return self.networkService.request(endpoint: endpoint) { result in
             switch result {
             case .success(let data):

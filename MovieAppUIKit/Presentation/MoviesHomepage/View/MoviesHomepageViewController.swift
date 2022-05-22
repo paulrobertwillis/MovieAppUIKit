@@ -45,13 +45,11 @@ class MoviesHomepageViewController: UIViewController {
         let repository = MoviesRepository(service)
         let popularUseCase = FetchPopularMoviesUseCase(moviesRepository: repository)
         let topRatedUseCase = FetchTopRatedMoviesUseCase(moviesRepository: repository)
-        
         self.viewModel = MoviesHomepageViewModel(fetchPopularMoviesUseCase: popularUseCase, fetchTopRatedMoviesUseCase: topRatedUseCase, delegate: self)
         
         self.setupViews()
         self.setupTableView()
     }
-    
     
     // MARK: - Private
     
@@ -62,11 +60,7 @@ class MoviesHomepageViewController: UIViewController {
     private func setupTableView() {
         self.movieListTableView.dataSource = self
         self.movieListTableView.register(UINib(nibName: MoviesListItemCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: MoviesListItemCell.reuseIdentifier)
-        
-        self.movieListTableView.rowHeight = UITableView.automaticDimension
-        self.movieListTableView.estimatedRowHeight = MoviesListItemCell.height
     }
-    
     
     // MARK: - IBActions
     
@@ -81,7 +75,6 @@ class MoviesHomepageViewController: UIViewController {
     @IBAction func topRatedButtonTapped(_ sender: Any) {
         self.viewModel.didSearchTopRatedMovies()
     }
-    
     
     // MARK: - Helpers
 

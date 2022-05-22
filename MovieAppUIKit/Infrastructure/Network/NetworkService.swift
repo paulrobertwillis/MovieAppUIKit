@@ -33,9 +33,7 @@ class NetworkService {
     // MARK: - Helpers
     
     private func request(request: URLRequest, completion: @escaping CompletionHandler) -> URLSessionDataTask {
-        
         let sessionDataTask = self.sessionManager.getURLSessionDataTask(for: request) { data, urlResponse, requestError in
-            
             if let requestError = requestError {
                 completion(.failure(requestError))
             } else {
@@ -49,9 +47,7 @@ class NetworkService {
 
 // MARK: - NetworkServiceProtocol
 extension NetworkService: NetworkServiceProtocol {
-    
     func request(endpoint: Requestable, completion: @escaping CompletionHandler) -> URLSessionDataTask? {
-        
         do {
             let urlRequest = try endpoint.urlRequest(with: config)
             return request(request: urlRequest, completion: completion)

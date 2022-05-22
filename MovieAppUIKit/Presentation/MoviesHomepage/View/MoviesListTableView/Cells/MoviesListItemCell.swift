@@ -10,7 +10,6 @@ import UIKit
 public class MoviesListItemCell: UITableViewCell {
     
     static let reuseIdentifier = String(describing: MoviesListItemCell.self)
-    static let height = CGFloat(130)
     
     @IBOutlet private weak var posterImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!

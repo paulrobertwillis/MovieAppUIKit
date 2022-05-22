@@ -13,7 +13,6 @@ public protocol PosterImageServiceProtocol {
 
 class PosterImageService: Service, PosterImageServiceProtocol {
     func getPosterImage(_ completion: @escaping (Data?) -> Void) {
-        
         // TODO: Check if this should be injected?
 //        let request = PopularMoviesRequest()
 //        self.network.perform(request, with: completion)

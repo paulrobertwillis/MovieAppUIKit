@@ -79,14 +79,6 @@ protocol ResponseRequestable: Requestable {
     var responseDecoder: ResponseDecoderProtocol { get }
 }
 
-
-
-
-
-
-
-
-
 private extension Encodable {
     func toDictionary() throws -> [String: String]? {
         let data = try JSONEncoder().encode(self)
