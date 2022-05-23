@@ -9,7 +9,5 @@ import XCTest
 @testable import MovieAppUIKit
 
 class FetchPopularMoviesUseCaseTests: XCTestCase {
-    func testFetchPopularMoviesUseCase_whenFetchesPopularMovies_then() {
-        
-    }
+
 }

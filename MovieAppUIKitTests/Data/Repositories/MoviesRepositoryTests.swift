@@ -35,7 +35,7 @@ class MoviesRepositoryTests: XCTestCase {
     var service: MoviesServiceMock!
     var sut: MoviesRepository!
     
-    // MARK: - Lifecycle
+    // MARK: - Test Lifecycle
     
     override func setUp() {
         super.setUp()
@@ -69,23 +69,30 @@ class MoviesRepositoryTests: XCTestCase {
     
     func test_whenFailsFetchingPopularMovies_shouldReturnError() {
         // given
-        self.service.expectation = self.expectation(description: "returns error for popular movies")
-        self.service.error = MoviesServiceError.someError
+        givenMoviesServiceWillFailFetchingMovies()
         
         // when
-        var responseError: MoviesServiceError?
-        self.sut.fetchPopularMovies(completion: { result in
-            switch result {
-            case .failure(let error):
-                responseError = error as? MoviesRepositoryTests.MoviesServiceError
-            case .success(_):
-                break
-            }
-        })
-        
+        // TODO: is there a way to simply call this function and not assign its result to a constant?
+        let result = whenSutAttemptsToFetchPopularMovies()
+                
         // then
-        waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(responseError, MoviesServiceError.someError)
+        guard case .failure(_) = result else {
+            XCTFail("Expected .failure, but was \(result)")
+            return
+        }
+    }
+    
+    private func givenMoviesServiceWillFailFetchingMovies() {
+        self.service.error = MoviesServiceError.someError
+    }
+
+    private func whenSutAttemptsToFetchPopularMovies() -> Result<MoviesPage, Error> {
+        // TODO: remove need for "value" here - is there a way to simply return the result?
+        var value: Result<MoviesPage, Error> = Result.success(MoviesPage.stub())
+        self.sut.fetchPopularMovies(completion: { result in
+            value = result
+        })
+        return value
     }
     
 //    func test_whenSucceedsFetchingTopRatedMovies_shouldReturnMappedResults() {
