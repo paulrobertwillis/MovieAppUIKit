@@ -9,7 +9,7 @@ import XCTest
 @testable import MovieAppUIKit
 
 class MoviesHomepageViewModelTests: XCTestCase {
-    var sut: MoviesHomepageViewModel!
+    //    var sut: MoviesHomepageViewModel!
     
     var moviesPages: [MoviesPage] = {
         let page1 = MoviesPage(page: 1, totalPages: 2, movies: [
@@ -27,6 +27,30 @@ class MoviesHomepageViewModelTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
+    
+    /*
+     
+     // When tap Top Rated button, should fetch a single page of Top Rated movies.
+     
+     // When tap Popular button, should fetch a single page of Popular movies.
+     
+     // When tap fetch buttons, should have a list of movies in movies array ready for presentation
+     
+     */
+    
+//    func testMoviesHomepageViewModel_whenSearchPopularMovies_shouldStoreFirstPageOfResultsAsVariable() {
+//        // given
+//        let mock = FetchPopularMoviesUseCaseMock()
+//        mock.page = MoviesPage.stub()
+//        let sut = MoviesHomepageViewModel(fetchPopularMoviesUseCase: mock, fetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCaseStub(), delegate: MoviesHomepageViewModelDelegateStub())
+//
+//        // when
+//        sut.didSearchPopularMovies()
+//        let expectedMovies = mock.page.movies.compactMap(MoviesListItemViewModel.init)
+//
+//        // then
+//        XCTAssertEqual(sut.movies, expectedMovies)
+//    }
 }
 
 final class FetchPopularMoviesUseCaseMock: FetchPopularMoviesUseCaseProtocol {
@@ -41,3 +65,18 @@ final class FetchPopularMoviesUseCaseMock: FetchPopularMoviesUseCaseProtocol {
         }
     }
 }
+
+final class FetchTopRatedMoviesUseCaseStub: FetchTopRatedMoviesUseCaseProtocol {
+    var page = MoviesPage(page: 0, totalPages: 0, movies: [])
+    
+    func start(completion: @escaping (Result<MoviesPage, Error>) -> Void) {
+        completion(.success(page))
+    }
+}
+
+final class MoviesHomepageViewModelDelegateStub: MoviesHomepageViewModelDelegate {
+    func refreshList() {
+        // do nothing
+    }
+}
+

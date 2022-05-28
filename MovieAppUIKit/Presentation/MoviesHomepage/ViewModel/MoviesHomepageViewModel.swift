@@ -56,7 +56,6 @@ extension MoviesHomepageViewModel {
             switch result {
             case .success(let page):
                 self.pages = [page]
-                
                 self.movies = page.movies.compactMap(MoviesListItemViewModel.init)
             case .failure(let error):
                 // TODO: Implement handling

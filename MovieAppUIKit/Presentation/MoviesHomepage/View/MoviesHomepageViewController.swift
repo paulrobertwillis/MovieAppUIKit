@@ -58,7 +58,10 @@ class MoviesHomepageViewController: UIViewController {
     
     private func setupTableView() {
         self.movieListTableView.dataSource = self
-        self.movieListTableView.register(UINib(nibName: MoviesListItemCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: MoviesListItemCell.reuseIdentifier)
+        
+        
+        let cellNib = UINib(nibName: MoviesListItemCell.reuseIdentifier, bundle: nil)
+        self.movieListTableView.register(cellNib, forCellReuseIdentifier: MoviesListItemCell.reuseIdentifier)
     }
     
     // MARK: - IBActions
@@ -93,10 +96,14 @@ extension MoviesHomepageViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = self.movieListTableView.dequeueReusableCell(withIdentifier: MoviesListItemCell.reuseIdentifier,
-                                                                     for: indexPath) as? MoviesListItemCell else {
+        let cellIdentifier = MoviesListItemCell.reuseIdentifier
+                
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: MoviesListItemCell.reuseIdentifier,
+                                                                     for: indexPath) as? MoviesListItemCell
+        else {
             // TODO: assertionFailure here? Check Example MVVM
-            return UITableViewCell()
+            return UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
         }
         
         cell.fill(
