@@ -12,12 +12,12 @@ public enum NetworkError: Error {
 }
 
 public protocol MoviesNetworkServiceProtocol {
-    func perform<RequestType: NetworkRequestProtocol>(_ request: RequestType, with completion: @escaping (Result<MoviesResponseDTO, Error>) -> Void)
+    func perform<RequestType: RequestProtocol>(_ request: RequestType, with completion: @escaping (Result<MoviesResponseDTO, Error>) -> Void)
 }
 
 class MoviesNetworkService: MoviesNetworkServiceProtocol {
     // TODO: Genericise this service to perform requests and decode the results for T, not just for MoviesResponseDTO
-    public func perform<RequestType: NetworkRequestProtocol>(_ request: RequestType, with completion: @escaping (Result<MoviesResponseDTO, Error>) -> Void) {
+    public func perform<RequestType: RequestProtocol>(_ request: RequestType, with completion: @escaping (Result<MoviesResponseDTO, Error>) -> Void) {
         
         let task = URLSession.shared.dataTask(with: request.url) { [weak self] (data, response, error) -> Void in
             if let error = error {

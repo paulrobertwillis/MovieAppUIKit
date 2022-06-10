@@ -8,12 +8,12 @@
 import Foundation
 
 public protocol PosterImageNetworkServiceProtocol {
-    func perform<RequestType: NetworkRequestProtocol>(_ request: RequestType, with completion: @escaping (Data?) -> Void)
+    func perform<RequestType: RequestProtocol>(_ request: RequestType, with completion: @escaping (Data?) -> Void)
 }
 
 class PosterImageNetworkService: PosterImageNetworkServiceProtocol {
     // TODO: Genericise this service to perform requests and decode the results for T, not just for Data
-    public func perform<RequestType: NetworkRequestProtocol>(_ request: RequestType, with completion: @escaping (Data?) -> Void) {
+    public func perform<RequestType: RequestProtocol>(_ request: RequestType, with completion: @escaping (Data?) -> Void) {
         
         let task = URLSession.shared.dataTask(with: request.url) { [weak self] (data, response, error) -> Void in
             guard let data = data, let value = self?.decode(data) else {

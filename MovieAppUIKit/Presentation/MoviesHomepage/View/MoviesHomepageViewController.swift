@@ -46,17 +46,17 @@ class MoviesHomepageViewController: UIViewController {
         let topRatedUseCase = FetchTopRatedMoviesUseCase(moviesRepository: repository)
         self.viewModel = MoviesHomepageViewModel(fetchPopularMoviesUseCase: popularUseCase, fetchTopRatedMoviesUseCase: topRatedUseCase, delegate: self)
         
-        self.setupViews()
-        self.setupTableView()
+        self.setUpViews()
+        self.setUpTableView()
     }
     
     // MARK: - Private
     
-    private func setupViews() {
+    private func setUpViews() {
         self.title = viewModel.screenTitle
     }
     
-    private func setupTableView() {
+    private func setUpTableView() {
         self.movieListTableView.dataSource = self
         
         

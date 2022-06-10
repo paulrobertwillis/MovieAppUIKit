@@ -8,6 +8,8 @@
 import Foundation
 
 protocol MoviesRepositoryProtocol {
+    func fetchMoviesPage(completion: @escaping (Result<MoviesPage, Error>) -> Void)
+    
     func fetchPopularMovies(completion: @escaping (Result<MoviesPage, Error>) -> Void)
     func fetchTopRatedMovies(completion: @escaping (Result<MoviesPage, Error>) -> Void)
 }
@@ -17,6 +19,10 @@ class MoviesRepository: MoviesRepositoryProtocol {
     
     public init(_ service: MoviesServiceProtocol) {
         self.service = service
+    }
+    
+    public func fetchMoviesPage(completion: @escaping (Result<MoviesPage, Error>) -> Void) {
+        
     }
     
     public func fetchPopularMovies(completion: @escaping (Result<MoviesPage, Error>) -> Void) {

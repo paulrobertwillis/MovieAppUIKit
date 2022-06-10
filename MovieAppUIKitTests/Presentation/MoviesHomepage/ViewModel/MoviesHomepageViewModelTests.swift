@@ -36,7 +36,21 @@ class MoviesHomepageViewModelTests: XCTestCase {
      
      // When tap fetch buttons, should have a list of movies in movies array ready for presentation
      
+     // When tap on movie, should navigate to MovieDetailsViewController
+          
      */
+    
+    func testMoviesHomepageViewModel_whenTapMoviesListeItem_shouldNavigateToMovieDetailsView() {
+        // given
+        let sut = MoviesHomepageViewModel(fetchPopularMoviesUseCase: FetchPopularMoviesUseCaseMock(), fetchTopRatedMoviesUseCase: FetchTopRatedMoviesUseCaseStub(), delegate: MoviesHomepageViewModelDelegateStub())
+        
+        
+        // when
+        
+        
+        // then
+        
+    }
     
 //    func testMoviesHomepageViewModel_whenSearchPopularMovies_shouldStoreFirstPageOfResultsAsVariable() {
 //        // given

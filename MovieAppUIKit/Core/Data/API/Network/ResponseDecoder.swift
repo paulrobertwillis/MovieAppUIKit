@@ -5,6 +5,9 @@
 //  Created by Paul on 23/04/2022.
 //
 
+
+// TODO: Replace with DataParser
+
 import Foundation
 
 protocol ResponseDecoderProtocol {
