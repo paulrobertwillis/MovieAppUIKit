@@ -372,17 +372,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		695D8E8C2853EE48008B583A /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				69D27D8E27BAA7CD000D8ACA /* Data */,
-				69D27D8C27BAA7C2000D8ACA /* Domain */,
-				6955414827C799DF003F9631 /* Infrastructure */,
-				695D8E932853F256008B583A /* Utils */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
 		695D8E8D2853EF7E008B583A /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,13 +388,6 @@
 				695D8E8F2853F032008B583A /* DataParser.swift */,
 			);
 			path = Parser;
-			sourceTree = "<group>";
-		};
-		695D8E932853F256008B583A /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		695D8E942853F2D4008B583A /* API */ = {
@@ -521,8 +503,10 @@
 			children = (
 				69D27D8627BAA6A3000D8ACA /* AppDelegate */,
 				69D27D8B27BAA7B9000D8ACA /* Application */,
-				695D8E8C2853EE48008B583A /* Core */,
 				69D27D8D27BAA7C8000D8ACA /* Presentation */,
+				69D27D8C27BAA7C2000D8ACA /* Domain */,
+				69D27D8E27BAA7CD000D8ACA /* Data */,
+				6955414827C799DF003F9631 /* Infrastructure */,
 				69D27D8927BAA6BA000D8ACA /* Resources */,
 			);
 			path = MovieAppUIKit;
